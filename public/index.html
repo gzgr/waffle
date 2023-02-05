@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <style>
+    .cell {
+      fill: blue;
+      stroke: black;
+      stroke-width: 1;
+    }
+  </style>
+</head>
+<body>
+  <svg width="500" height="500"></svg>
+  <script>
+    var svg = d3.select("svg"),
+        width = +svg.attr("width"),
+        height = +svg.attr("height");
+    
+    var data = [
+      [1, 1, 1, 0, 0],
+      [0, 1, 1, 1, 0],
+      [0, 0, 0, 1, 1],
+      [1, 1, 0, 1, 1],
+      [1, 1, 0, 0, 1]
+    ];
+    
+    var cellSize = 50;
+    
+    svg.selectAll(".row")
+      .data(data)
+      .enter().append("g")
+        .attr("class", "row")
+        .selectAll(".cell")
+        .data(function(d) { return d; })
+        .enter().append("rect")
+          .attr("class", "cell")
+          .attr("x", function(d, i) { return (i % 5) * cellSize; })
+          .attr("y", function(d, i) { return Math.floor(i / 5) * cellSize; })
+          .attr("width", cellSize)
+          .attr("height", cellSize)
+          .style("fill", function(d) { return d ? "blue" : "white"; });
+  </script>
+</body>
+</html>
